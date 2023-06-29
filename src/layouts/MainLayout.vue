@@ -10,7 +10,9 @@
     </q-drawer> -->
 
     <q-page-container class="page-container">
-      <router-view />
+      <q-page padding>
+        <router-view />
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
