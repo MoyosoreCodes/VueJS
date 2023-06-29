@@ -1,0 +1,21 @@
+<template>
+  <q-layout view="lHh LpR lFf">
+    <AppHeader />
+
+    <q-drawer show-if-above side="left">
+      <AppSidebar />
+    </q-drawer>
+
+    <!-- <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
+    </q-drawer> -->
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script setup lang="ts">
+import AppHeader from 'src/components/AppHeader/AppHeader.vue';
+import AppSidebar from 'src/components/AppSidebar/AppSidebar.vue';
+</script>

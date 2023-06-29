@@ -1,0 +1,44 @@
+.sidebar-container {
+  max-width: 299px;
+  height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  margin: 50px 25px;
+
+  .header {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .main {
+    margin-top: 45px;
+
+    .items {
+      display: flex;
+      padding: 12px 16px 13px 17px;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 25px;
+
+      .page {
+        text-transform: capitalize;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .active {
+        color: #004fff;
+      }
+    }
+
+    .items:hover {
+      border-radius: 8px;
+      background: #e7e7fe;
+    }
+  }
+}
