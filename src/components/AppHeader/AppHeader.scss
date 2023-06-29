@@ -1,4 +1,30 @@
 .header-container {
-  background: white;
+  background: #f5f5f9;
   color: black;
+  padding: 13px 20px;
+  width: 100%;
+
+  .items {
+    .left {
+      background: white;
+      border-radius: 10px;
+      padding: 23px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      .breadcrumb {
+        .item {
+          cursor: pointer;
+          font-size: 20px;
+        }
+
+        .item:hover {
+          color: #407fff;
+        }
+      }
+    }
+
+    .right {
+    }
+  }
 }
