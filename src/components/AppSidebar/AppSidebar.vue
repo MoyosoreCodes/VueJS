@@ -8,19 +8,19 @@
       <div
         v-for="sidebarItem in sidebarItems"
         :key="sidebarItem.name"
-        class="items"
+        :class="`items ${sidebarItem.isActive ? 'active' : ''}`"
         @click="setSidebarActive(sidebarItem.name)"
       >
-        <span :class="`page ${sidebarItem.isActive ? 'active' : ''}`">
+        <span class="page">
           <component
             :is="sidebarItem.icon"
-            :color="sidebarItem.isActive ? '#407BFF': 'black'"
+            :color="sidebarItem.isActive ? '#407BFF' : 'black'"
           />
           {{ sidebarItem.name }}
         </span>
         <component
           :is="RightArrow"
-          :color="sidebarItem.isActive ? '#407BFF': 'black'"
+          :color="sidebarItem.isActive ? '#407BFF' : 'black'"
         />
       </div>
     </div>
@@ -36,7 +36,15 @@ import Menu from '../svgs/AppMenu.vue';
 import Navigation from '../svgs/AppNavigation.vue';
 import CreditCard from '../svgs/CreditCard.vue';
 import User from '../svgs/AppUser.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+onMounted(() => {
+  const routeName = route.name as string;
+  if (routeName) setSidebarActive(route.name as string);
+});
 
 const sidebarItems = ref([
   {
@@ -78,7 +86,10 @@ function setSidebarActive(pageName: string) {
 
   if (previousActivePage) previousActivePage.isActive = false;
   const sidebarItem = sidebarItems.value.find(({ page }) => page === pageName);
-  if (sidebarItem) sidebarItem.isActive = true;
+  if (sidebarItem) {
+    sidebarItem.isActive = true;
+    router.push(sidebarItem.page);
+  }
 }
 </script>
 

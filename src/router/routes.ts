@@ -4,7 +4,34 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    redirect: { name: 'dashboard', path: '/dashboard' },
+    children: [
+      {
+        name: 'dashboard',
+        path: 'dashboard',
+        component: () => import('pages/Dashboard/DashboardIndex.vue'),
+      },
+      {
+        name: 'transactions',
+        path: 'transactions',
+        component: () => import('pages/Transactions/TransactionsIndex.vue'),
+      },
+      {
+        name: 'transfers',
+        path: 'transfers',
+        component: () => import('pages/Transfers/TransfersIndex.vue'),
+      },
+      {
+        name: 'accounts',
+        path: 'accounts',
+        component: () => import('pages/Accounts/AccountsIndex.vue'),
+      },
+      {
+        name: 'profile',
+        path: 'profile',
+        component: () => import('pages/Profile/ProfileIndex.vue'),
+      },
+    ],
   },
 
   // Always leave this as last one,
