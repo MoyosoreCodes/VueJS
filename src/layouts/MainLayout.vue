@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh LpR lFf">
-    <AppHeader @toggle-sidebar="showSidebar = !showSidebar"/>
+    <AppHeader @toggle-sidebar="toggleSidebar"/>
 
-    <q-drawer show-if-above v-model="showSidebar" side="left">
+    <q-drawer show-if-above v-model="showLeftSidebar" side="left">
       <AppSidebar />
     </q-drawer>
 
@@ -22,7 +22,11 @@ import AppHeader from 'src/components/AppHeader/AppHeader.vue';
 import AppSidebar from 'src/components/AppSidebar/AppSidebar.vue';
 import { ref } from 'vue';
 
-const showSidebar = ref(true)
+const showLeftSidebar = ref(true)
+
+function toggleSidebar() {
+  showLeftSidebar.value = !showLeftSidebar.value
+}
 </script>
 
 <style scoped lang="scss">

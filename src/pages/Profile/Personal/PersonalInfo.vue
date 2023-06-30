@@ -10,24 +10,32 @@
     </div>
 
     <section class="details-container">
-      <form action="" class="profile-group">
+      <form class="profile-group">
         <div
           class="profile-section-items"
           v-for="formData in profileFormData"
           :key="formData.tag"
         >
-          <label class="label">
+          <span class="label">
             {{ formData.label }}
-          </label>
+          </span>
+
           <q-input
+            class="input"
             v-model="formData.value"
             flat
             outlined
-            class="input"
+            :disable="profileFormLoading"
             :placeholder="formData.value || formData.label"
           />
         </div>
-        <q-btn flat class="submit">save profile</q-btn>
+        <q-btn
+          flat
+          class="submit"
+          :loading="profileFormLoading"
+          @click="updateProfile"
+          >save profile</q-btn
+        >
       </form>
     </section>
   </section>
@@ -36,6 +44,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const profileFormLoading = ref(false);
 const profileFormData = ref([
   {
     label: 'First name',
@@ -63,6 +72,14 @@ const profileFormData = ref([
     value: null,
   },
 ]);
+
+function updateProfile() {
+  profileFormLoading.value = true;
+  // TODO - save the form data to server here...
+  setTimeout(() => {
+    profileFormLoading.value = false;
+  }, 5000);
+}
 </script>
 <style scoped lang="scss">
 @import url('./PersonalInfo.scss');
