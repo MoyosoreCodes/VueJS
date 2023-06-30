@@ -1,6 +1,6 @@
 <template>
-  <p class="title">Update profile</p>
-  <section class="form-container">
+  <section class="personal-section">
+    <p class="title">Update profile</p>
     <div class="image-section">
       <q-avatar icon="person" class="avatar" size="127px" />
       <div class="actions">
@@ -10,10 +10,10 @@
     </div>
 
     <section class="details-container">
-      <form class="profile-group">
+      <form class="group">
         <div
-          class="profile-section-items"
-          v-for="formData in profileFormData"
+          class="section-items"
+          v-for="formData in profileFormSection"
           :key="formData.tag"
         >
           <span class="label">
@@ -29,13 +29,49 @@
             :placeholder="formData.value || formData.label"
           />
         </div>
-        <q-btn
-          flat
-          class="submit"
-          :loading="profileFormLoading"
-          @click="updateProfile"
-          >save profile</q-btn
+        <div class="submit-area">
+          <q-btn
+            flat
+            class="submit"
+            :loading="profileFormLoading"
+            @click="updateProfile"
+            >save profile</q-btn
+          >
+        </div>
+      </form>
+    </section>
+
+    <p class="title">Change password</p>
+    <section class="details-container">
+      <form class="group">
+        <div
+          class="section-items"
+          v-for="formData in passwordFormSection"
+          :key="formData.tag"
         >
+          <span class="label">
+            {{ formData.label }}
+          </span>
+
+          <q-input
+            class="input"
+            v-model="formData.value"
+            flat
+            outlined
+            :disable="passwordFormLoading"
+            :placeholder="formData.value || formData.label"
+          />
+        </div>
+        <div></div>
+        <div class="submit-area">
+          <q-btn
+            flat
+            class="submit"
+            :loading="passwordFormLoading"
+            @click="updatePassword"
+            >Change Password</q-btn
+          >
+        </div>
       </form>
     </section>
   </section>
@@ -45,7 +81,8 @@
 import { ref } from 'vue';
 
 const profileFormLoading = ref(false);
-const profileFormData = ref([
+const passwordFormLoading = ref(false);
+const profileFormSection = ref([
   {
     label: 'First name',
     tag: 'first_name',
@@ -73,11 +110,31 @@ const profileFormData = ref([
   },
 ]);
 
+const passwordFormSection = ref([
+  {
+    label: 'Old password',
+    tag: 'old_password',
+    value: null,
+  },
+  {
+    label: 'New password',
+    tag: 'new_password',
+    value: null,
+  },
+]);
+
 function updateProfile() {
   profileFormLoading.value = true;
   // TODO - save the form data to server here...
   setTimeout(() => {
     profileFormLoading.value = false;
+  }, 5000);
+}
+function updatePassword() {
+  passwordFormLoading.value = true;
+  // TODO - save the form data to server here...
+  setTimeout(() => {
+    passwordFormLoading.value = false;
   }, 5000);
 }
 </script>
