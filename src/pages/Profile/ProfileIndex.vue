@@ -22,7 +22,7 @@ const route = useRoute();
 const router = useRouter();
 onMounted(() => {
   const routePath = route.fullPath as string;
-  if (routePath) setActiveTab(route.fullPath as string);
+  if (routePath) setActiveTab(routePath);
 });
 
 const tabs = ref([
