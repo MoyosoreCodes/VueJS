@@ -4,8 +4,18 @@
     <div class="image-section">
       <q-avatar icon="person" class="avatar" size="127px" />
       <div class="actions">
-        <q-btn flat dense outlined size="md">Remove image</q-btn>
-        <q-btn flat dense outlined size="md">Change image</q-btn>
+        <q-btn flat dense outlined size="md" :loading="imageLoading"
+          >Remove image</q-btn
+        >
+        <q-btn
+          flat
+          dense
+          outlined
+          size="md"
+          :loading="imageLoading"
+          @click="handleImageUpdate"
+          >Change image</q-btn
+        >
       </div>
     </div>
 
@@ -82,6 +92,8 @@ import { ref } from 'vue';
 
 const profileFormLoading = ref(false);
 const passwordFormLoading = ref(false);
+const imageLoading = ref(false);
+const image = ref<FileList | null>(null);
 const profileFormSection = ref([
   {
     label: 'First name',
@@ -135,6 +147,28 @@ function updatePassword() {
   // TODO - save the form data to server here...
   setTimeout(() => {
     passwordFormLoading.value = false;
+  }, 5000);
+}
+
+function handleImageUpdate() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.multiple = false;
+  fileInput.accept = 'jpeg, .jpg, .png';
+  fileInput.onchange = (_) => {
+    image.value = fileInput.files;
+    uploadImage(image.value[0] as File);
+  };
+  fileInput.click();
+}
+
+function uploadImage(fileValue: File) {
+  console.log('uploading', fileValue);
+
+  imageLoading.value = true;
+  // TODO - save the form data to server here...
+  setTimeout(() => {
+    imageLoading.value = false;
   }, 5000);
 }
 </script>
