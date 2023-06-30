@@ -54,7 +54,7 @@ function setActiveTab(tabPage: string) {
 watch(
   () => route.fullPath,
   (routePath) => {
-    setActiveTab(routePath);
+    setActiveTab(routePath as string);
   }
 );
 </script>

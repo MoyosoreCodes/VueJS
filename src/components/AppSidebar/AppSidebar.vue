@@ -36,7 +36,7 @@ import Menu from '../svgs/AppMenu.vue';
 import Navigation from '../svgs/AppNavigation.vue';
 import CreditCard from '../svgs/CreditCard.vue';
 import User from '../svgs/AppUser.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -96,6 +96,13 @@ function setSidebarActive(pagePath: string) {
     router.push(sidebarItem.to);
   }
 }
+
+watch(
+  () => route.fullPath,
+  (routePath) => {
+    setSidebarActive(routePath as string);
+  }
+);
 </script>
 
 <style scoped lang="scss">
