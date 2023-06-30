@@ -6,7 +6,7 @@
           <q-btn icon="menu" flat dense @click="showSidebar" />
         </div>
 
-        <q-breadcrumbs
+        <!-- <q-breadcrumbs
           class="breadcrumb"
           v-for="(item, index) in breadcrumb"
           :key="index"
@@ -17,15 +17,15 @@
           <q-breadcrumb-el @click="goToPage(item.url)" class="item">
             {{ item.label }}
           </q-breadcrumb-el>
-        </q-breadcrumbs>
-        <!-- <div
+        </q-breadcrumbs> -->
+        <div
           class="breadcrumb"
           v-for="(item, index) in breadcrumb"
           :key="item.label"
         >
           <span class="item" @click="goToPage(item.url)">{{ item.label }}</span>
-          <span class="q-mx-xs" v-if="index < breadcrumb.length - 1">></span>
-        </div> -->
+          <span class="separator" v-if="index < breadcrumb.length - 1">/</span>
+        </div>
       </div>
     </div>
   </q-header>

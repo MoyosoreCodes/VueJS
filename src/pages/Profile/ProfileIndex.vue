@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -50,6 +50,13 @@ function setActiveTab(tabPage: string) {
     router.push(sidebarItem.to);
   }
 }
+
+watch(
+  () => route.fullPath,
+  (routePath) => {
+    setActiveTab(routePath);
+  }
+);
 </script>
 <style scoped lang="scss">
 @import url('./ProfileIndex.scss');
