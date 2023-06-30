@@ -3,16 +3,29 @@
     <div class="items">
       <div class="left">
         <div class="menu-btn" v-if="showToggleSidebarButton">
-          <q-btn icon="menu" flat dense @click="showSidebar"/>
+          <q-btn icon="menu" flat dense @click="showSidebar" />
         </div>
-        <div
+
+        <q-breadcrumbs
+          class="breadcrumb"
+          v-for="(item, index) in breadcrumb"
+          :key="index"
+        >
+          <template v-slot:separator>
+            <q-icon size="1.5em" name="chevron_right" color="primary" />
+          </template>
+          <q-breadcrumb-el @click="goToPage(item.url)" class="item">
+            {{ item.label }}
+          </q-breadcrumb-el>
+        </q-breadcrumbs>
+        <!-- <div
           class="breadcrumb"
           v-for="(item, index) in breadcrumb"
           :key="item.label"
         >
           <span class="item" @click="goToPage(item.url)">{{ item.label }}</span>
           <span class="q-mx-xs" v-if="index < breadcrumb.length - 1">></span>
-        </div>
+        </div> -->
       </div>
     </div>
   </q-header>
@@ -22,7 +35,7 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
-const emit = defineEmits(['toggleSidebar'])
+const emit = defineEmits(['toggleSidebar']);
 
 const quasar = useQuasar();
 const route = useRoute();
@@ -56,7 +69,7 @@ function goToPage(url: string) {
 }
 
 function showSidebar() {
-  emit('toggleSidebar')
+  emit('toggleSidebar');
 }
 </script>
 

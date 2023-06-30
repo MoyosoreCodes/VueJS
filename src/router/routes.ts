@@ -29,7 +29,20 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'profile',
         path: 'profile',
+        redirect: { name: 'personal' },
         component: () => import('pages/Profile/ProfileIndex.vue'),
+        children: [
+          {
+            name: 'personal',
+            path: 'personal',
+            component: () => import('pages/Profile/Personal/PersonalInfo.vue'),
+          },
+          {
+            name: 'kin',
+            path: 'kin',
+            component: () => import('pages/Profile/Kin/KinInfo.vue'),
+          },
+        ],
       },
     ],
   },

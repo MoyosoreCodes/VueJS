@@ -9,7 +9,7 @@
         v-for="sidebarItem in sidebarItems"
         :key="sidebarItem.name"
         :class="`items ${sidebarItem.isActive ? 'active' : ''}`"
-        @click="setSidebarActive(sidebarItem.name)"
+        @click="setSidebarActive(sidebarItem.to)"
       >
         <span class="page">
           <component
@@ -42,8 +42,8 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 onMounted(() => {
-  const routeName = route.name as string;
-  if (routeName) setSidebarActive(route.name as string);
+  const routePath = route.fullPath as string;
+  if (routePath) setSidebarActive(routePath);
 });
 
 const sidebarItems = ref([
@@ -52,43 +52,48 @@ const sidebarItems = ref([
     page: 'dashboard',
     isActive: false,
     icon: Home,
+    to: '/dashboard',
   },
   {
     name: 'transactions',
     page: 'transactions',
     isActive: false,
     icon: Menu,
+    to: '/transactions',
   },
   {
     name: 'transfers',
     page: 'transfers',
     isActive: false,
     icon: Navigation,
+    to: '/transfers',
   },
   {
     name: 'accounts',
     page: 'accounts',
     isActive: false,
     icon: CreditCard,
+    to: '/accounts',
   },
   {
     name: 'profile',
     page: 'profile',
     isActive: false,
     icon: User,
+    to: '/profile',
   },
 ]);
 
-function setSidebarActive(pageName: string) {
+function setSidebarActive(pagePath: string) {
   const previousActivePage = sidebarItems.value.find(
     ({ isActive }) => isActive
   );
 
   if (previousActivePage) previousActivePage.isActive = false;
-  const sidebarItem = sidebarItems.value.find(({ page }) => page === pageName);
+  const sidebarItem = sidebarItems.value.find(({ to }) => pagePath.includes(to));
   if (sidebarItem) {
     sidebarItem.isActive = true;
-    router.push(sidebarItem.page);
+    router.push(sidebarItem.to);
   }
 }
 </script>
