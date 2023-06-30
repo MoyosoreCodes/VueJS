@@ -1,5 +1,5 @@
 <template>
-  <div>Kin info</div>
+  <p class="title">Update kin information</p>
 </template>
 
 <script setup lang="ts"></script>

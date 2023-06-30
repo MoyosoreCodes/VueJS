@@ -1,0 +1,59 @@
+.title {
+  color: #000;
+  font-size: 24px;
+}
+
+.form-container {
+  padding: 15px;
+
+  .image-section {
+    display: flex;
+    color: #004fff;
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 45px;
+
+    .avatar {
+      border: 1px solid black;
+      color: black;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      min-width: 230px;
+    }
+  }
+
+  .profile-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+    gap: 30px;
+
+    .profile-section-items {
+
+      .label {
+        color: #212121;
+        font-size: 20px;
+        line-height: normal;
+        letter-spacing: 0.412px;
+      }
+      .input {
+        margin-top: 15px;
+        min-width: 300px;
+      }
+    }
+
+    .submit {
+      justify-self: flex-end;
+      align-self: flex-end;
+      width: 150px;
+      border-radius: 6px;
+      border: 1px solid #407bff;
+      background: #407bff;
+      color: white;
+      text-transform: capitalize;
+    }
+  }
+}
