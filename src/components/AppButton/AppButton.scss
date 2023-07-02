@@ -1,0 +1,17 @@
+.app-button {
+  padding: unset;
+  padding: 8px 12px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  .content {
+    padding: unset;
+    margin: 0 12px;
+    display: flex;
+    width: 100px;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 16px;
+  }
+}
