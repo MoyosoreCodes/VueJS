@@ -13,24 +13,24 @@
             {{ formData.label }}
           </span>
 
-          <q-input
+          <AppInput
             class="input"
             v-model="formData.value"
             flat
-            outlined
+            borderless
             :disable="kinFormLoading"
             :placeholder="formData.value || formData.label"
           />
         </div>
         <div></div>
         <div class="submit-area">
-          <q-btn
+          <AppButton
             flat
             class="submit"
+            label="Update information"
             :loading="kinFormLoading"
             @click="updateProfile"
-            >update information</q-btn
-          >
+          />
         </div>
       </form>
     </section>
@@ -39,6 +39,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import AppButton from 'src/components/AppButton/AppButton.vue';
+import AppInput from 'src/components/AppInput/AppInput.vue';
 
 const kinFormLoading = ref(false);
 const kinFormSection = ref([
@@ -74,31 +76,11 @@ const kinFormSection = ref([
   },
 ]);
 
-const passwordFormSection = ref([
-  {
-    label: 'Old password',
-    tag: 'old_password',
-    value: null,
-  },
-  {
-    label: 'New password',
-    tag: 'new_password',
-    value: null,
-  },
-]);
-
 function updateProfile() {
   kinFormLoading.value = true;
   // TODO - save the form data to server here...
   setTimeout(() => {
     kinFormLoading.value = false;
-  }, 5000);
-}
-function updatePassword() {
-  passwordFormLoading.value = true;
-  // TODO - save the form data to server here...
-  setTimeout(() => {
-    passwordFormLoading.value = false;
   }, 5000);
 }
 </script>

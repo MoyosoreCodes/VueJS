@@ -68,7 +68,7 @@ const props = defineProps({
   },
   contentWidth: {
     type: String,
-    default: '80px'
+    default: '100%'
   }
 });
 

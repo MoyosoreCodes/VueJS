@@ -30,7 +30,7 @@
             {{ formData.label }}
           </span>
 
-          <q-input
+          <AppInput
             class="input"
             v-model="formData.value"
             flat
@@ -40,13 +40,13 @@
           />
         </div>
         <div class="submit-area">
-          <q-btn
+          <AppButton
             flat
             class="submit"
+            label="Save profile"
             :loading="profileFormLoading"
             @click="updateProfile"
-            >save profile</q-btn
-          >
+          />
         </div>
       </form>
     </section>
@@ -63,24 +63,23 @@
             {{ formData.label }}
           </span>
 
-          <q-input
+          <AppInput
             class="input"
             v-model="formData.value"
             flat
-            outlined
             :disable="passwordFormLoading"
             :placeholder="formData.value || formData.label"
           />
         </div>
         <div></div>
         <div class="submit-area">
-          <q-btn
+          <AppButton
             flat
             class="submit"
+            label="Change Password"
             :loading="passwordFormLoading"
             @click="updatePassword"
-            >Change Password</q-btn
-          >
+          />
         </div>
       </form>
     </section>
@@ -89,6 +88,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import AppButton from 'src/components/AppButton/AppButton.vue';
+import AppInput from 'src/components/AppInput/AppInput.vue';
 
 const profileFormLoading = ref(false);
 const passwordFormLoading = ref(false);
