@@ -43,7 +43,7 @@
     <div class="content">
       <AppTable :columns="columns" :loading="loadingTransactions" :rows="rows">
         <template #rows="{ props }">
-          <q-tr :props="props">
+          <q-tr :props="props" class="table-rows">
             <q-td key="date" :props="props">
               {{ props.row.date }}
             </q-td>

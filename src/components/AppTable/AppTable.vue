@@ -6,6 +6,7 @@
       :loading="loading"
       flat
       class="app-table"
+      separator="none"
     >
       <template v-if="customizedHeader" v-slot:header="props">
         <!-- <slot name="header" :props="props" /> -->
