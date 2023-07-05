@@ -154,27 +154,27 @@ function fetchTransactions(statusFilter?: string) {
 
 function resetTransaction() {
   rows.value = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     rows.value.push(
       {
         date: '01 Jun 2022',
         description: 'This is the decription for the reserved wallet ',
         amount: 50000000,
-        recipient: 'Moyosore Olaleye',
+        recipient: 'Kylo Ren',
         status: 'Pending',
       },
       {
         date: '01 Jun 2022',
         description: 'This is the decription for the reserved wallet ',
         amount: 275000600,
-        recipient: 'Moyosore Olaleye',
+        recipient: 'Din Djarin',
         status: 'Completed',
       },
       {
         date: '01 Jun 2022',
         description: 'This is the decription for the reserved wallet ',
         amount: 90826000,
-        recipient: 'Moyosore Olaleye',
+        recipient: 'Han Solo',
         status: 'Dispute',
       }
     );
