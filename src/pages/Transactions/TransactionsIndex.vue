@@ -8,7 +8,11 @@
           v-for="(status, index) in transactionStatus"
           :key="index"
         >
-          <span>{{ status.label }}</span>
+          <span
+            @click="setActiveFilter(index)"
+            :class="`${isActiveFilter === status.label ? 'active' : ''}`"
+            >{{ status.label }}</span
+          >
         </div>
       </span>
 
@@ -65,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import AppButton from 'src/components/AppButton/AppButton.vue';
 import ArrowDown from 'src/components/svgs/ArrowDown.vue';
 import AppDownload from 'src/components/svgs/AppDownload.vue';
@@ -76,7 +80,7 @@ import { formatCurrency } from 'src/helpers/formatCurrency';
 const transactionStatus = ref([
   { label: 'All', value: 'all' },
   { label: 'Pending', value: 'pending' },
-  { label: 'Failed', value: 'failed' },
+  { label: 'Dispute', value: 'dispute' },
   { label: 'Completed', value: 'completed' },
 ]);
 
@@ -85,6 +89,8 @@ const statusColors = {
   Pending: { textColor: '', background: 'rgba(255, 191, 0, 0.30)' },
   Dispute: { textColor: '', background: '#FFB6B6' },
 };
+
+const activeFilter = ref({ label: 'All', value: 'all' });
 
 const columns = ref([
   {
@@ -122,36 +128,64 @@ const columns = ref([
 const rows = ref([]);
 const loadingTransactions = ref(false);
 
+function setActiveFilter(index?: number) {
+  let filter;
+  if (index !== undefined) {
+    filter = transactionStatus.value[index];
+  } else {
+    filter = transactionStatus.value[0];
+  }
+  activeFilter.value = filter;
+  fetchTransactions(activeFilter.value?.label);
+}
+
+const isActiveFilter = computed(() => {
+  return activeFilter?.value?.label;
+});
+
+function fetchTransactions(statusFilter?: string) {
+  resetTransaction();
+  if (statusFilter && statusFilter !== 'All') {
+    rows.value = rows.value.filter((row) => {
+      return statusFilter === row?.status;
+    });
+  }
+}
+
+function resetTransaction() {
+  rows.value = [];
+  for (let i = 0; i < 5; i++) {
+    rows.value.push(
+      {
+        date: '01 Jun 2022',
+        description: 'This is the decription for the reserved wallet ',
+        amount: 50000000,
+        recipient: 'Moyosore Olaleye',
+        status: 'Pending',
+      },
+      {
+        date: '01 Jun 2022',
+        description: 'This is the decription for the reserved wallet ',
+        amount: 275000600,
+        recipient: 'Moyosore Olaleye',
+        status: 'Completed',
+      },
+      {
+        date: '01 Jun 2022',
+        description: 'This is the decription for the reserved wallet ',
+        amount: 90826000,
+        recipient: 'Moyosore Olaleye',
+        status: 'Dispute',
+      }
+    );
+  }
+}
+
 onMounted(() => {
   loadingTransactions.value = true;
-  setTimeout(() => {
-    for (let i = 0; i < 5; i++) {
-      rows.value.push(
-        {
-          date: '01 Jun 2022',
-          description: 'This is the decription for the reserved wallet ',
-          amount: 50000000,
-          recipient: 'Moyosore Olaleye',
-          status: 'Pending',
-        },
-        {
-          date: '01 Jun 2022',
-          description: 'This is the decription for the reserved wallet ',
-          amount: 275000600,
-          recipient: 'Moyosore Olaleye',
-          status: 'Completed',
-        },
-        {
-          date: '01 Jun 2022',
-          description: 'This is the decription for the reserved wallet ',
-          amount: 90826000,
-          recipient: 'Moyosore Olaleye',
-          status: 'Dispute',
-        }
-      );
-    }
-    loadingTransactions.value = false;
-  });
+
+  fetchTransactions(activeFilter.value?.label);
+  loadingTransactions.value = false;
 });
 </script>
 <style scoped lang="scss">
