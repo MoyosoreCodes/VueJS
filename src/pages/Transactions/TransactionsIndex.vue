@@ -47,10 +47,17 @@
         :rows="rows"
         customize-header
         customize-rows
-        customize-cell="status"
+        :customize-cells="['status', 'amount']"
       >
-        <template #default="{value}">
-          <component :is="AppBadge" :text="value" :backgroundColor="statusColors[value].background" />
+        <template v-slot:status="{ value }">
+          <component
+            :is="AppBadge"
+            :text="value"
+            :backgroundColor="statusColors[value].background"
+          />
+        </template>
+        <template v-slot:amount="{ value }">
+          {{ formatCurrency(value, 'USD') }}
         </template>
       </AppTable>
     </div>
@@ -64,6 +71,7 @@ import ArrowDown from 'src/components/svgs/ArrowDown.vue';
 import AppDownload from 'src/components/svgs/AppDownload.vue';
 import AppTable from 'src/components/AppTable/AppTable.vue';
 import AppBadge from 'src/components/AppBadge/AppBadge.vue';
+import { formatCurrency } from 'src/helpers/formatCurrency';
 
 const transactionStatus = ref([
   { label: 'All', value: 'all' },
@@ -73,10 +81,10 @@ const transactionStatus = ref([
 ]);
 
 const statusColors = {
-  'Completed':  {textColor: '', background: '#D1D1FF'},
-  'Pending':  {textColor: '', background: 'rgba(255, 191, 0, 0.30)'},
-  'Dispute':  {textColor: '', background: '#FFB6B6'},
-}
+  Completed: { textColor: '', background: '#D1D1FF' },
+  Pending: { textColor: '', background: 'rgba(255, 191, 0, 0.30)' },
+  Dispute: { textColor: '', background: '#FFB6B6' },
+};
 
 const columns = ref([
   {
@@ -122,21 +130,21 @@ onMounted(() => {
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
-          amount: '50000000',
+          amount: 50000000,
           recipient: 'Moyosore Olaleye',
           status: 'Pending',
         },
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
-          amount: '50000000',
+          amount: 275000600,
           recipient: 'Moyosore Olaleye',
           status: 'Completed',
         },
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
-          amount: '50000000',
+          amount: 90826000,
           recipient: 'Moyosore Olaleye',
           status: 'Dispute',
         }

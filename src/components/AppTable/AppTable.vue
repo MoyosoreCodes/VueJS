@@ -21,8 +21,8 @@
             :key="column?.name"
             :align="column.align || 'left'"
           >
-            <div v-if="customizeCell === column?.name">
-              <slot name="default" :value="row[column.name]"/>
+            <div v-if="shouldCustomizeCell(column.name)">
+              <slot :name="column?.name" :value="row[column.name]" />
             </div>
             <div v-else>
               {{ row[column.name] }}
@@ -43,6 +43,11 @@ const isRowCustomized = computed(() => {
 const isHeaderCustomized = computed(() => {
   return props.columns?.length && props.customizeHeader;
 });
+function shouldCustomizeCell(columnName) {
+  if (props.customizeCells?.length) {
+    return props.customizeCells.includes(columnName as string);
+  }
+}
 
 const props = defineProps({
   rows: {
@@ -71,9 +76,8 @@ const props = defineProps({
     type: String,
     default: 'app-table__body_row_item',
   },
-  customizeCell: {
-    type: String,
-    default: 'app-table__body_row_item',
+  customizeCells: {
+    type: Array,
   },
   bordered: {
     type: Boolean,
