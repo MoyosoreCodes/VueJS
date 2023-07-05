@@ -1,49 +1,82 @@
 <template>
-  <div>
-    <q-table
+  <div :class="`app-table-container ${bordered ? 'bordered' : ''}`">
+    <!-- <q-table
       :rows="rows"
       :columns="columns"
       :loading="loading"
       flat
-      class="app-table"
       separator="none"
+      table-header-class="q-mt-lg q-mb-lg primary"
     >
       <template v-if="customizedHeader" v-slot:header="props">
-        <!-- <slot name="header" :props="props" /> -->
-        <q-tr :props="props" class="app-table-header">
+        <q-tr :props="props">
           <q-th v-for="column in columns" :key="column.name" :props="props">
             {{ column.label }}
           </q-th>
         </q-tr>
       </template>
       <template v-if="customizedRows" v-slot:body="props">
-        <slot name="rows" :props="props" />
+        <q-tr :props="props" class="q-mt-lg q-mb-lg">
+          <slot name="rows" :props="props" />
+        </q-tr>
       </template>
-    </q-table>
+    </q-table> -->
+    <table class="app-table">
+      <thead class="app-table__header">
+        <tr v-if="columns?.length && customizeHeader">
+          <th
+            class="app-table__header__row_item"
+            v-for="column in columns"
+            :key="column?.name"
+            :align="column.align ? column.align : 'left'"
+          >
+            {{ column?.label }}
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        v-if="(columns?.length || rows?.length) && customizeRows"
+      >
+        <tr v-for="(row, index) in rows" :key="index" class="app-table__body">
+          <td
+            class="app-table__body_row_item"
+            v-for="column in columns"
+            :key="column?.name"
+            :align="column.align ? column.align : 'left'"
+          >
+            {{ row[column.name] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed, onMounted } from 'vue';
+
 const props = defineProps({
   rows: {
     type: Array,
-    default: () => [],
   },
   columns: {
     type: Array,
-    default: () => [],
   },
   loading: {
     type: Boolean,
     default: false,
   },
-  customizedHeader: {
+  customizeHeader: {
     type: Boolean,
-    default: true,
+    default: false,
   },
-  customizedRows: {
+  customizeRows: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  bordered: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

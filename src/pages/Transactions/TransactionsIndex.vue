@@ -41,26 +41,24 @@
     </div>
 
     <div class="content">
-      <AppTable :columns="columns" :loading="loadingTransactions" :rows="rows">
-        <template #rows="{ props }">
-          <q-tr :props="props" class="table-rows">
-            <q-td key="date" :props="props">
-              {{ props.row.date }}
-            </q-td>
-            <q-td key="description" :props="props">
-              {{ props.row.description }}
-            </q-td>
-            <q-td key="amount" :props="props">
-              {{ props.row.amount }}
-            </q-td>
-            <q-td key="recipient" :props="props">
-              {{ props.row.recipient }}
-            </q-td>
-            <q-td key="status" :props="props">
-              {{ props.row.status }}
-            </q-td>
-          </q-tr>
-        </template>
+      <AppTable :columns="columns" :loading="loadingTransactions" :rows="rows" customize-header customize-rows>
+        <!-- <template #rows="{ props }">
+          <q-td key="date" :props="props">
+            {{ props.row.date }}
+          </q-td>
+          <q-td key="description" :props="props">
+            {{ props.row.description }}
+          </q-td>
+          <q-td key="amount" :props="props">
+            {{ props.row.amount }}
+          </q-td>
+          <q-td key="recipient" :props="props">
+            {{ props.row.recipient }}
+          </q-td>
+          <q-td key="status" :props="props">
+            {{ props.row.status }}
+          </q-td>
+        </template> -->
       </AppTable>
     </div>
   </main>
@@ -81,21 +79,36 @@ const transactionStatus = ref([
 ]);
 
 const columns = ref([
-  { name: 'date', field: 'date', label: 'Date', align: 'center' },
+  {
+    name: 'date',
+    field: 'date',
+    label: 'Date',
+    align: 'left',
+  },
   {
     name: 'description',
     field: 'description',
     label: 'Description',
     align: 'center',
   },
-  { name: 'amount', field: 'amount', label: 'Amount', align: 'center' },
+  {
+    name: 'amount',
+    field: 'amount',
+    label: 'Amount',
+    align: 'center',
+  },
   {
     name: 'recipient',
     field: 'recipient',
     label: 'Recipient',
     align: 'center',
   },
-  { name: 'status', field: 'status', label: 'Status', align: 'center' },
+  {
+    name: 'status',
+    field: 'status',
+    label: 'Status',
+    align: 'center',
+  },
 ]);
 
 const rows = ref([]);
@@ -104,17 +117,33 @@ const loadingTransactions = ref(false);
 onMounted(() => {
   loadingTransactions.value = true;
   setTimeout(() => {
-    for (let i = 0; i < 10; i++) {
-      rows.value.push({
-        date: '01 Jun 2022',
-        description: 'This is the decription for the reserved wallet ',
-        amount: '50000000',
-        recipient: 'Moyosore Olaleye',
-        status: 'pending',
-      });
+    for (let i = 0; i < 2; i++) {
+      rows.value.push(
+        {
+          date: '01 Jun 2022',
+          description: 'This is the decription for the reserved wallet ',
+          amount: '50000000',
+          recipient: 'Moyosore Olaleye',
+          status: 'pending',
+        },
+        {
+          date: '01 Jun 2022',
+          description: 'This is the decription for the reserved wallet ',
+          amount: '50000000',
+          recipient: 'Moyosore Olaleye',
+          status: 'completed',
+        },
+        {
+          date: '01 Jun 2022',
+          description: 'This is the decription for the reserved wallet ',
+          amount: '50000000',
+          recipient: 'Moyosore Olaleye',
+          status: 'dispute',
+        }
+      );
     }
     loadingTransactions.value = false;
-  }, 5000);
+  });
 });
 </script>
 <style scoped lang="scss">
