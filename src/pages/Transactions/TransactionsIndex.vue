@@ -47,7 +47,11 @@
         :rows="rows"
         customize-header
         customize-rows
+        customize-cell="status"
       >
+        <template #default="{value}">
+          <component :is="AppBadge" :text="value" :backgroundColor="statusColors[value].background" />
+        </template>
       </AppTable>
     </div>
   </main>
@@ -59,6 +63,7 @@ import AppButton from 'src/components/AppButton/AppButton.vue';
 import ArrowDown from 'src/components/svgs/ArrowDown.vue';
 import AppDownload from 'src/components/svgs/AppDownload.vue';
 import AppTable from 'src/components/AppTable/AppTable.vue';
+import AppBadge from 'src/components/AppBadge/AppBadge.vue';
 
 const transactionStatus = ref([
   { label: 'All', value: 'all' },
@@ -66,6 +71,12 @@ const transactionStatus = ref([
   { label: 'Failed', value: 'failed' },
   { label: 'Completed', value: 'completed' },
 ]);
+
+const statusColors = {
+  'Completed':  {textColor: '', background: '#D1D1FF'},
+  'Pending':  {textColor: '', background: 'rgba(255, 191, 0, 0.30)'},
+  'Dispute':  {textColor: '', background: '#FFB6B6'},
+}
 
 const columns = ref([
   {

@@ -2,28 +2,31 @@
   <div :class="`app-table-container ${bordered ? 'bordered' : ''}`">
     <table class="app-table">
       <thead class="app-table__header">
-        <tr v-if="columns?.length && customizeHeader">
+        <tr v-if="isHeaderCustomized">
           <th
             class="app-table__header__row_item"
             v-for="column in columns"
             :key="column?.name"
-            :align="column.align ? column.align : 'left'"
+            :align="column.align || 'left'"
           >
             {{ column?.label }}
           </th>
         </tr>
       </thead>
-      <tbody
-        v-if="(columns?.length || rows?.length) && customizeRows"
-      >
-        <tr v-for="(row, index) in rows" :key="index" class="app-table__body">
+      <tbody v-if="isRowCustomized">
+        <tr v-for="(row, index) in rows" :key="index" :class="customRowClass">
           <td
-            class="app-table__body_row_item"
+            :class="customItemClass"
             v-for="column in columns"
             :key="column?.name"
-            :align="column.align ? column.align : 'left'"
+            :align="column.align || 'left'"
           >
-            {{ row[column.name] }}
+            <div v-if="customizeCell === column?.name">
+              <slot name="default" :value="row[column.name]"/>
+            </div>
+            <div v-else>
+              {{ row[column.name] }}
+            </div>
           </td>
         </tr>
       </tbody>
@@ -33,6 +36,13 @@
 
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue';
+
+const isRowCustomized = computed(() => {
+  return (props.columns?.length || props.rows?.length) && props.customizeRows;
+});
+const isHeaderCustomized = computed(() => {
+  return props.columns?.length && props.customizeHeader;
+});
 
 const props = defineProps({
   rows: {
@@ -52,6 +62,18 @@ const props = defineProps({
   customizeRows: {
     type: Boolean,
     default: false,
+  },
+  customRowClass: {
+    type: String,
+    default: 'app-table__body',
+  },
+  customItemClass: {
+    type: String,
+    default: 'app-table__body_row_item',
+  },
+  customizeCell: {
+    type: String,
+    default: 'app-table__body_row_item',
   },
   bordered: {
     type: Boolean,
