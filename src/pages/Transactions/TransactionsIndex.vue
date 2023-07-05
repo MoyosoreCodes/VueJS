@@ -41,24 +41,13 @@
     </div>
 
     <div class="content">
-      <AppTable :columns="columns" :loading="loadingTransactions" :rows="rows" customize-header customize-rows>
-        <!-- <template #rows="{ props }">
-          <q-td key="date" :props="props">
-            {{ props.row.date }}
-          </q-td>
-          <q-td key="description" :props="props">
-            {{ props.row.description }}
-          </q-td>
-          <q-td key="amount" :props="props">
-            {{ props.row.amount }}
-          </q-td>
-          <q-td key="recipient" :props="props">
-            {{ props.row.recipient }}
-          </q-td>
-          <q-td key="status" :props="props">
-            {{ props.row.status }}
-          </q-td>
-        </template> -->
+      <AppTable
+        :columns="columns"
+        :loading="loadingTransactions"
+        :rows="rows"
+        customize-header
+        customize-rows
+      >
       </AppTable>
     </div>
   </main>
@@ -89,7 +78,7 @@ const columns = ref([
     name: 'description',
     field: 'description',
     label: 'Description',
-    align: 'center',
+    align: 'left',
   },
   {
     name: 'amount',
@@ -117,28 +106,28 @@ const loadingTransactions = ref(false);
 onMounted(() => {
   loadingTransactions.value = true;
   setTimeout(() => {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 5; i++) {
       rows.value.push(
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
           amount: '50000000',
           recipient: 'Moyosore Olaleye',
-          status: 'pending',
+          status: 'Pending',
         },
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
           amount: '50000000',
           recipient: 'Moyosore Olaleye',
-          status: 'completed',
+          status: 'Completed',
         },
         {
           date: '01 Jun 2022',
           description: 'This is the decription for the reserved wallet ',
           amount: '50000000',
           recipient: 'Moyosore Olaleye',
-          status: 'dispute',
+          status: 'Dispute',
         }
       );
     }

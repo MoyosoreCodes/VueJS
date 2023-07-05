@@ -1,26 +1,5 @@
 <template>
   <div :class="`app-table-container ${bordered ? 'bordered' : ''}`">
-    <!-- <q-table
-      :rows="rows"
-      :columns="columns"
-      :loading="loading"
-      flat
-      separator="none"
-      table-header-class="q-mt-lg q-mb-lg primary"
-    >
-      <template v-if="customizedHeader" v-slot:header="props">
-        <q-tr :props="props">
-          <q-th v-for="column in columns" :key="column.name" :props="props">
-            {{ column.label }}
-          </q-th>
-        </q-tr>
-      </template>
-      <template v-if="customizedRows" v-slot:body="props">
-        <q-tr :props="props" class="q-mt-lg q-mb-lg">
-          <slot name="rows" :props="props" />
-        </q-tr>
-      </template>
-    </q-table> -->
     <table class="app-table">
       <thead class="app-table__header">
         <tr v-if="columns?.length && customizeHeader">
